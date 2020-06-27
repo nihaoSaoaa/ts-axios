@@ -29,6 +29,8 @@ const router = express.Router();
 route.registerBaseRoute(router);
 route.registerErrorRoute(router);
 route.registerExtendRoute(router);
+route.registerInterceptorRoute(router);
+route.registerConfigRouter(router);
 
 app.use(router)
 

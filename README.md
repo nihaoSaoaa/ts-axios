@@ -1,6 +1,6 @@
 # ts-axios
 
-用 Typescript 编写的 axios 库
+用 Typescript 编写的 axios 库，实现浏览器的部分功能（基于 XMLHttpRequest）
 
 ## 基本
 
@@ -23,3 +23,12 @@
 7. 实现混合对象
 
 8. 响应数据支持泛型
+
+## 拦截器
+
+9. 实现自定义拦截器、链式调用（Promise）
+
+10. 自定义默认配置，内部合并
+
+11. 自定义转换函数
+

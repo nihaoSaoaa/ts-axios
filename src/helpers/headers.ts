@@ -1,4 +1,5 @@
-import { isPlainObject } from './util'
+import { isPlainObject, deepMerge } from './util'
+import { Method } from '../types'
 export function processHeaders(headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
   if (isPlainObject(data)) {
@@ -19,6 +20,10 @@ function normalizeHeaderName(headers: any, headerName: string): void {
   })
 }
 
+/**
+ * 解析请求头字符串
+ * @param headersStr 字符串
+ */
 export function parseHeaders(headersStr: string): any {
   let parsed = Object.create(null)
   if (!headersStr) return parsed
@@ -30,4 +35,20 @@ export function parseHeaders(headersStr: string): any {
     parsed[name] = value
     return parsed
   }, parsed)
+}
+
+/**
+ * 展开请求头（将深层次的字段扁平化）
+ * @param headers
+ * @param method
+ */
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) return headers
+  headers = deepMerge(headers.common, headers[method], headers)
+  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+
+  methodsToDelete.forEach(method => {
+    delete headers[method]
+  })
+  return headers
 }
